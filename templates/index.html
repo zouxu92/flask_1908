@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>name = {{ name }}</p>
+    <p>age = {{ age }}</p>
+    <p>my_dict: city = {{ my_dict["city"] }}</p>
+    <p>my_dict: city = {{ my_dict.city }}</p>
+    <p>my_list: {{ my_list }}</p>
+    <p>my_list[my_int]: city = {{ my_list[my_int] }}</p>
+    <p>my_list[0] + my_list[1] = {{ my_list[0] + my_list[1] }}</p>
+    <p>过滤器-->转换成大写，并且去掉空格 </p>
+    <p>a{{ "  flask world  " | trim | upper }}a</p>
+
+</body>
+</html>
