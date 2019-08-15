@@ -74,9 +74,10 @@ def index():
 # post /delete_book json
 # {"book_id": xxx}
 
+'''
 @app.route("/delete_book", methods=["POST"])
 def delete_book():
-    '''删除数据'''
+    # ##删除数据
     # 提取参数
     # 如果前端发送的请求体数据是json格式，get_json 会解析成字典
     # get_json 要求前端传送的数据的 Content-Type: application/json
@@ -90,6 +91,21 @@ def delete_book():
 
     # Content-Type: application/json
     return jsonify(code=0, message="ok")
+'''
+# delete_book?book_id=xx
+@app.route("/delete_book", methods=["GET"])
+def delete_book():
+    '''删除数据'''
+    # 提取参数
+    book_id = request.args.get("book_id")
+
+    # 删除数据
+    book = Book.query.get(book_id)
+    db.session.delete(book)
+    db.session.commit()
+
+    # Content-Type: application/json
+    return redirect(url_for("index"))
 
 
 if __name__ == '__main__':

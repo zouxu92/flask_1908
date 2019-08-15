@@ -29,12 +29,15 @@
         <ul>
             {% for book in author.books %}
             <li>书籍: {{ book.name }}</li>
-                <a href="javascript:;" book_id="{{ book.id }}">删除</a>
+                <!--<a href="javascript:;" book_id="{{ book.id }}">删除</a>-->
+                <a href="/delete_book?book_id={{ book.id }}">删除</a>
             {% endfor %}
         </ul>
         {% endfor %}
     </ul>
     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+
+    <!--  post 请求方式的删除
     <script>
         $("a").click(
             function (){
@@ -63,5 +66,6 @@
             }
         )
     </script>
+    -->
 </body>
 </html>
