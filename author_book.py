@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
 
@@ -23,6 +25,16 @@ app.config.from_object(Config)
 # 创建数据库sqlalchemy工具对象
 db = SQLAlchemy(app)
 
+# 创建flask脚本管理工具对象
+manager = Manager(app)
+
+
+# 创建数据库迁移工具对象
+Migrate(app, db)
+
+# 向manger对象中添加数据库的操作命令
+manager.add_command('db', MigrateCommand)
+
 # 定义数据库的模型
 class Author(db.Model):
     """作者"""
@@ -30,6 +42,7 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True)
     books = db.relationship("Book", backref="author")
+    email = db.Column(db.String(64))
 
 class Book(db.Model):
     """书籍"""
@@ -127,4 +140,6 @@ if __name__ == '__main__':
     db.session.add_all([bk_qian, bk_san, bk_xi, bk_xi2])
     db.session.commit()
     '''
-    app.run(debug=True)
+    # app.run(debug=True)
+    # 通过manager启动命令
+    manager.run()
