@@ -43,6 +43,7 @@ class Author(db.Model):
     name = db.Column(db.String(32), unique=True)
     books = db.relationship("Book", backref="author")
     email = db.Column(db.String(64))
+    mobil = db.Column(db.String(32))
 
 class Book(db.Model):
     """书籍"""
